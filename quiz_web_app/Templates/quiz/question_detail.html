@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>{% extends "quiz/base.html" %}
+    {% block content %}
+        <div class="card text-center">
+            <div class="card-body">
+
+
+                <div class="container">
+                    <h3 class="card-title">Тест: {{ question.quiz.title }}</h3>
+                    <div class="my-2">
+                        {{ question.text }}
+                    </div>
+                </div>
+                <form action="{% url 'user-submits-answer' %}" method="POST">{% csrf_token %}
+                    <input type=hidden name="quiz_detail[]" value="{{ question.id }}">
+                    <input type=hidden name="quiz_detail[]" value="{{ question.quiz.id }}">
+
+
+                    <div class="row">
+                            <div class="btn-group-vertical" id="list-tab" role="tablist">
+
+                                {% for answer in question.answers.all %}
+
+
+                                    <input type="checkbox" class="btn-check" id="btn-check-outlined{{ answer.id }}"
+                                           autocomplete="off" name="answer_{{ answer.id }}"/>
+                                    <label class="btn btn-outline-secondary" for="btn-check-outlined{{ answer.id }}">
+                                        {{ answer }}</label>
+
+                                {% endfor %}
+
+                            </div>
+
+                    </div>
+
+                    <input class="btn mt-2 btn-dark" type="submit"
+                           value="Подтвердить">
+                </form>
+
+            </div>
+        </div>
+
+
+    {% endblock content %}
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+{% extends "quiz/base.html" %}
+{% block content %}
+    <div class="card text-center">
+        <div class="card-body">
+
+
+            <div class="container">
+                <h3 class="card-title">Тест: {{ result.quiz.title }}</h3>
+                <div>
+                    Количество вопросов: {{ result.quiz.get_questions|length }}
+                </div>
+                <div>
+                    Результат: {{ result.score }}%
+                </div>
+                <div>
+                    Правильных ответов: {{ result.right }}
+                </div>
+                <div>
+                    <a class="btn mt-2 btn-outline-info"
+                       href="{% url 'drop-result' result.pk %}">
+                        Сброс
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock content %}

@@ -1,0 +1,37 @@
+{% extends "quiz/base.html" %}
+{% block content %}
+
+    <div class="card text-center">
+        <div class="card-body">
+
+            <h1 class="card-title">Выберите тест</h1>
+
+            <div class="card-text">
+                <div class="list-group text-center">
+
+                    {% for quiz in quizes %}
+                        <a class="list-group-item list-group-item-action
+                              {% if user in quiz.user_has_results %}list-group-item-success
+                              {% elif user in quiz.user_current_quiz  %}list-group-item-primary
+                              {% endif %}"
+                           href="{% url 'quiz-detail' quiz.id %}">
+                            {{ quiz.title }}
+                            {% if user in quiz.user_has_results %} (пройден)
+                            {% elif user in quiz.user_current_quiz  %} (в процессе прохождения)
+                            {% endif %}
+                        </a>
+
+
+                    {% endfor %}
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+{% endblock content %}
