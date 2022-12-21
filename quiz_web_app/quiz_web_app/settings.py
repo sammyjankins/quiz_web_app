@@ -22,9 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-+633(9d)8l(=8t=u)4n_)3)@3&!6xlrz7q@emb)t!(7$6fb-%='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'quiz',
     'nested_admin',
     'users.apps.UsersConfig',
-    'crispy_forms'
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -132,3 +132,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'index'
 LOGIN_URL = 'login'
+
+from .settings_local import *
