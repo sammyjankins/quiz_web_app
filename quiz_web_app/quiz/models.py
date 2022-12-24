@@ -37,7 +37,11 @@ class Question(models.Model):
         return self.text
 
     def get_answers(self):
-        return self.answer_set.all()
+        return self.answers.all()
+
+    def is_only_correct(self):
+        correctness = [answer.correct for answer in self.get_answers()]
+        return correctness.count(True) == 1
 
 
 class Answer(models.Model):

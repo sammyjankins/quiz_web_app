@@ -14,25 +14,37 @@
                         {{ question.text }}
                     </div>
                 </div>
+                <div class="my-2">
+                    {% if  question.is_only_correct %}
+                        <small>Выберите один вариант</small>
+                    {% else %}
+                        <small>Выберите несколько вариантов</small>
+                    {% endif %}
+                </div>
                 <form action="{% url 'user-submits-answer' %}" method="POST">{% csrf_token %}
                     <input type=hidden name="quiz_detail[]" value="{{ question.id }}">
                     <input type=hidden name="quiz_detail[]" value="{{ question.quiz.id }}">
 
 
                     <div class="row">
-                            <div class="btn-group-vertical" id="list-tab" role="tablist">
+                        <div class="btn-group-vertical" id="list-tab" role="tablist">
 
-                                {% for answer in question.answers.all %}
+                            {% for answer in question.answers.all %}
 
 
-                                    <input type="checkbox" class="btn-check" id="btn-check-outlined{{ answer.id }}"
-                                           autocomplete="off" name="answer_{{ answer.id }}"/>
-                                    <label class="btn btn-outline-secondary" for="btn-check-outlined{{ answer.id }}">
-                                        {{ answer }}</label>
+                                <input {% if question.is_only_correct %}
+                                    type="radio"
+                                {% else %}
+                                    type="checkbox"
+                                {% endif %}
+                                    class="btn-check" id="btn-check-outlined{{ answer.id }}"
+                                    autocomplete="off" name="answer" value="{{ answer.id }}"/>
+                                <label class="btn btn-outline-secondary" for="btn-check-outlined{{ answer.id }}">
+                                    {{ answer }}</label>
 
-                                {% endfor %}
+                            {% endfor %}
 
-                            </div>
+                        </div>
 
                     </div>
 

@@ -34,7 +34,7 @@ def check_is_current(instance):
 
 def eval_user_selection(request, question):
     user_question = UserQuestion.objects.filter(user=request.user, question=question).first()
-    user_selection_list = [answer.split('_')[1] for answer in request.POST if answer.startswith('answer')]
+    user_selection_list = request.POST.getlist('answer')
     if user_selection_list:
         for user_selection in user_selection_list:
             answer = Answer.objects.get(id=user_selection)
